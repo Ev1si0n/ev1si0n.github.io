@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="前两天，在复习.net相关基础的时候，恰巧看到了一片关于构造函数的文章，有很多平时没有注意到的地方。特记录下来。
+一、构造函数的定义 ​ C#中构造函数是在创建给定类型的对象时执行的类方法。构造函数具有与类相同的名称，它通常初始化新对象的数据成员。不带参数的构造函数称为“默认构造函数”。 无论什么时候，只要使用new运算符实例化对象，并且不为 new 提供任何参数，就会调用默认构造函数。除非类是静态的，否则C#编译器将为无构造函数的类提供一个公共的默认构造函数，以便该类可以实例化。默认构造函数:public 类名(){}
+构造函数可分为：实例构造函数，静态构造函数，私有构造函数（下面会详细介绍）
+二、构造函数时的注意事项 ​ 构造函数没有返回值（void也不需要） 一个类中可以有多个构造函数，可根据其参数个数，参数顺序，参数类型的不同来区分它们，这称作构造函数的重载 构造函数的命名必须和类名相同 调用子类的构造函数时会先调用父类的无参构造函数 通常使用构造函数来进行类中字段的赋初值 构造函数不能直接被调用，必须通过关键字new在创建对象时自动调用 当一个类没有定义任何构造函数时，C#编译器会自动为其生成一个默认的隐式无参构造函数 如果一个类中定义了有参构造函数，实例化时需要调用无参构造函数，这时我们就必须定义一个显式无参数构造函数，否则运行会报错
+三、构造函数与一般函数的区别 1.声明方式不同
+构造函数： [访问修饰符] 类名(参数列表){函数主体}
+public class1(int a) { } 一般函数： [访问修饰符] 返回类型 方法名(参数列表){函数主体}
+public int class2(int a) { } 2.调用方式不同
+构造函数：在类实例化时调用 一般函数：在类实例化后，必须手动调用
+四、构造函数的作用 当需要给一个类中的字段进行初始化时，第一种：实例化后手动给属性赋值；第二种实例化时直接把参数放进去自动给属性赋值，显然第二种简单省事。下来我们一起看看两种方法：
+第一种：
+class Program { static void Main(string[] args) { Student stu = new Student(); stu.Id = 1807; stu.Name = &amp;#34;王麻子&amp;#34;; stu.Sex = &amp;#34;男&amp;#34;; stu.Score = 88.6; Console." />
+<meta name="keywords" content=", " />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://ev1si0n.github.io/post/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/" />
+
+
+    <title>
+        
+            构造函数详解 :: Lee&#39;s Blog  — Lee的碎碎念
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.4e5c639214707eff609bb55fe49e183dee42258a73bc90e4cc7b0a84f900798a.css">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="构造函数详解">
+<meta itemprop="description" content="前两天，在复习.net相关基础的时候，恰巧看到了一片关于构造函数的文章，有很多平时没有注意到的地方。特记录下来。
+一、构造函数的定义 ​ C#中构造函数是在创建给定类型的对象时执行的类方法。构造函数具有与类相同的名称，它通常初始化新对象的数据成员。不带参数的构造函数称为“默认构造函数”。 无论什么时候，只要使用new运算符实例化对象，并且不为 new 提供任何参数，就会调用默认构造函数。除非类是静态的，否则C#编译器将为无构造函数的类提供一个公共的默认构造函数，以便该类可以实例化。默认构造函数:public 类名(){}
+构造函数可分为：实例构造函数，静态构造函数，私有构造函数（下面会详细介绍）
+二、构造函数时的注意事项 ​ 构造函数没有返回值（void也不需要） 一个类中可以有多个构造函数，可根据其参数个数，参数顺序，参数类型的不同来区分它们，这称作构造函数的重载 构造函数的命名必须和类名相同 调用子类的构造函数时会先调用父类的无参构造函数 通常使用构造函数来进行类中字段的赋初值 构造函数不能直接被调用，必须通过关键字new在创建对象时自动调用 当一个类没有定义任何构造函数时，C#编译器会自动为其生成一个默认的隐式无参构造函数 如果一个类中定义了有参构造函数，实例化时需要调用无参构造函数，这时我们就必须定义一个显式无参数构造函数，否则运行会报错
+三、构造函数与一般函数的区别 1.声明方式不同
+构造函数： [访问修饰符] 类名(参数列表){函数主体}
+public class1(int a) { } 一般函数： [访问修饰符] 返回类型 方法名(参数列表){函数主体}
+public int class2(int a) { } 2.调用方式不同
+构造函数：在类实例化时调用 一般函数：在类实例化后，必须手动调用
+四、构造函数的作用 当需要给一个类中的字段进行初始化时，第一种：实例化后手动给属性赋值；第二种实例化时直接把参数放进去自动给属性赋值，显然第二种简单省事。下来我们一起看看两种方法：
+第一种：
+class Program { static void Main(string[] args) { Student stu = new Student(); stu.Id = 1807; stu.Name = &#34;王麻子&#34;; stu.Sex = &#34;男&#34;; stu.Score = 88.6; Console."><meta itemprop="datePublished" content="2022-06-20T17:16:45+08:00" />
+<meta itemprop="dateModified" content="2022-06-20T17:16:45+08:00" />
+<meta itemprop="wordCount" content="361"><meta itemprop="image" content="https://ev1si0n.github.io"/>
+<meta itemprop="keywords" content="," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ev1si0n.github.io"/>
+
+<meta name="twitter:title" content="构造函数详解"/>
+<meta name="twitter:description" content="前两天，在复习.net相关基础的时候，恰巧看到了一片关于构造函数的文章，有很多平时没有注意到的地方。特记录下来。
+一、构造函数的定义 ​ C#中构造函数是在创建给定类型的对象时执行的类方法。构造函数具有与类相同的名称，它通常初始化新对象的数据成员。不带参数的构造函数称为“默认构造函数”。 无论什么时候，只要使用new运算符实例化对象，并且不为 new 提供任何参数，就会调用默认构造函数。除非类是静态的，否则C#编译器将为无构造函数的类提供一个公共的默认构造函数，以便该类可以实例化。默认构造函数:public 类名(){}
+构造函数可分为：实例构造函数，静态构造函数，私有构造函数（下面会详细介绍）
+二、构造函数时的注意事项 ​ 构造函数没有返回值（void也不需要） 一个类中可以有多个构造函数，可根据其参数个数，参数顺序，参数类型的不同来区分它们，这称作构造函数的重载 构造函数的命名必须和类名相同 调用子类的构造函数时会先调用父类的无参构造函数 通常使用构造函数来进行类中字段的赋初值 构造函数不能直接被调用，必须通过关键字new在创建对象时自动调用 当一个类没有定义任何构造函数时，C#编译器会自动为其生成一个默认的隐式无参构造函数 如果一个类中定义了有参构造函数，实例化时需要调用无参构造函数，这时我们就必须定义一个显式无参数构造函数，否则运行会报错
+三、构造函数与一般函数的区别 1.声明方式不同
+构造函数： [访问修饰符] 类名(参数列表){函数主体}
+public class1(int a) { } 一般函数： [访问修饰符] 返回类型 方法名(参数列表){函数主体}
+public int class2(int a) { } 2.调用方式不同
+构造函数：在类实例化时调用 一般函数：在类实例化后，必须手动调用
+四、构造函数的作用 当需要给一个类中的字段进行初始化时，第一种：实例化后手动给属性赋值；第二种实例化时直接把参数放进去自动给属性赋值，显然第二种简单省事。下来我们一起看看两种方法：
+第一种：
+class Program { static void Main(string[] args) { Student stu = new Student(); stu.Id = 1807; stu.Name = &#34;王麻子&#34;; stu.Sex = &#34;男&#34;; stu.Score = 88.6; Console."/>
+
+
+
+
+    <meta property="og:title" content="构造函数详解" />
+<meta property="og:description" content="前两天，在复习.net相关基础的时候，恰巧看到了一片关于构造函数的文章，有很多平时没有注意到的地方。特记录下来。
+一、构造函数的定义 ​ C#中构造函数是在创建给定类型的对象时执行的类方法。构造函数具有与类相同的名称，它通常初始化新对象的数据成员。不带参数的构造函数称为“默认构造函数”。 无论什么时候，只要使用new运算符实例化对象，并且不为 new 提供任何参数，就会调用默认构造函数。除非类是静态的，否则C#编译器将为无构造函数的类提供一个公共的默认构造函数，以便该类可以实例化。默认构造函数:public 类名(){}
+构造函数可分为：实例构造函数，静态构造函数，私有构造函数（下面会详细介绍）
+二、构造函数时的注意事项 ​ 构造函数没有返回值（void也不需要） 一个类中可以有多个构造函数，可根据其参数个数，参数顺序，参数类型的不同来区分它们，这称作构造函数的重载 构造函数的命名必须和类名相同 调用子类的构造函数时会先调用父类的无参构造函数 通常使用构造函数来进行类中字段的赋初值 构造函数不能直接被调用，必须通过关键字new在创建对象时自动调用 当一个类没有定义任何构造函数时，C#编译器会自动为其生成一个默认的隐式无参构造函数 如果一个类中定义了有参构造函数，实例化时需要调用无参构造函数，这时我们就必须定义一个显式无参数构造函数，否则运行会报错
+三、构造函数与一般函数的区别 1.声明方式不同
+构造函数： [访问修饰符] 类名(参数列表){函数主体}
+public class1(int a) { } 一般函数： [访问修饰符] 返回类型 方法名(参数列表){函数主体}
+public int class2(int a) { } 2.调用方式不同
+构造函数：在类实例化时调用 一般函数：在类实例化后，必须手动调用
+四、构造函数的作用 当需要给一个类中的字段进行初始化时，第一种：实例化后手动给属性赋值；第二种实例化时直接把参数放进去自动给属性赋值，显然第二种简单省事。下来我们一起看看两种方法：
+第一种：
+class Program { static void Main(string[] args) { Student stu = new Student(); stu.Id = 1807; stu.Name = &#34;王麻子&#34;; stu.Sex = &#34;男&#34;; stu.Score = 88.6; Console." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ev1si0n.github.io/post/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/" /><meta property="og:image" content="https://ev1si0n.github.io"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-06-20T17:16:45+08:00" />
+<meta property="article:modified_time" content="2022-06-20T17:16:45+08:00" /><meta property="og:site_name" content="Lee&#39;s Blog" />
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2022-06-20 17:16:45 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">Lee&#39;s Blog</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/post">Blog</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://ev1si0n.github.io/post/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/">构造函数详解</a></h2>
+
+            
+            
+            
+
+            <div class="post-content">
+                <p>前两天，在复习.net相关基础的时候，恰巧看到了一片关于构造函数的文章，有很多平时没有注意到的地方。特记录下来。</p>
+<h2 id="一构造函数的定义">一、构造函数的定义</h2>
+<p>​        C#中构造函数是在创建给定类型的对象时执行的类方法。构造函数具有与类相同的名称，它通常初始化新对象的数据成员。不带参数的构造函数称为“默认构造函数”。 无论什么时候，只要使用new运算符实例化对象，并且不为 new 提供任何参数，就会调用默认构造函数。除非类是静态的，否则C#编译器将为无构造函数的类提供一个公共的默认构造函数，以便该类可以实例化。默认构造函数:public 类名(){}</p>
+<p>构造函数可分为：实例构造函数，静态构造函数，私有构造函数（下面会详细介绍）</p>
+<h2 id="二构造函数时的注意事项">二、构造函数时的注意事项</h2>
+<p>​        构造函数没有返回值（void也不需要） 一个类中可以有多个构造函数，可根据其参数个数，参数顺序，参数类型的不同来区分它们，这称作构造函数的重载 构造函数的命名必须和类名相同 调用子类的构造函数时会先调用父类的无参构造函数 通常使用构造函数来进行类中字段的赋初值 构造函数不能直接被调用，必须通过关键字new在创建对象时自动调用 当一个类没有定义任何构造函数时，C#编译器会自动为其生成一个默认的隐式无参构造函数 如果一个类中定义了有参构造函数，实例化时需要调用无参构造函数，这时我们就必须定义一个显式无参数构造函数，否则运行会报错</p>
+<h2 id="三构造函数与一般函数的区别">三、构造函数与一般函数的区别</h2>
+<p>1.声明方式不同</p>
+<p>构造函数： <strong>[访问修饰符] 类名(参数列表){函数主体}</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> class1(<span style="color:#66d9ef">int</span> a) { }
+</span></span></code></pre></div><p>一般函数： <strong>[访问修饰符] 返回类型 方法名(参数列表){函数主体}</strong></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> class2(<span style="color:#66d9ef">int</span> a) { }
+</span></span></code></pre></div><p>2.调用方式不同</p>
+<p>构造函数：在类实例化时调用 一般函数：在类实例化后，必须手动调用</p>
+<h2 id="四构造函数的作用">四、构造函数的作用</h2>
+<p>当需要给一个类中的字段进行初始化时，第一种：实例化后手动给属性赋值；第二种实例化时直接把参数放进去自动给属性赋值，显然第二种简单省事。下来我们一起看看两种方法：</p>
+<p>第一种：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Student stu = <span style="color:#66d9ef">new</span> Student();
+</span></span><span style="display:flex;"><span>            stu.Id = <span style="color:#ae81ff">1807</span>;
+</span></span><span style="display:flex;"><span>            stu.Name = <span style="color:#e6db74">&#34;王麻子&#34;</span>;
+</span></span><span style="display:flex;"><span>            stu.Sex = <span style="color:#e6db74">&#34;男&#34;</span>;
+</span></span><span style="display:flex;"><span>            stu.Score = <span style="color:#ae81ff">88.6</span>;
+</span></span><span style="display:flex;"><span>            Console.WriteLine(<span style="color:#e6db74">$&#34;学号:{stu.Id}-姓名{stu.Name}-性别:{stu.Sex}-成绩{stu.Score}&#34;</span>);
+</span></span><span style="display:flex;"><span>            Console.ReadLine();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Sex { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> Score { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>第二种:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>        	Student stu1 = <span style="color:#66d9ef">new</span> Student();<span style="color:#75715e">//无参构造函数调用</span>
+</span></span><span style="display:flex;"><span>            Student stu = <span style="color:#66d9ef">new</span> Student(<span style="color:#ae81ff">1807</span>,<span style="color:#e6db74">&#34;王麻子&#34;</span>,<span style="color:#e6db74">&#34;男&#34;</span>,<span style="color:#ae81ff">88.6</span>);
+</span></span><span style="display:flex;"><span>            Console.WriteLine(<span style="color:#e6db74">&#34;学号:{0}-姓名{1}-性别:{2}-成绩{3}&#34;</span>,stu.Id,stu.Name,stu.Sex,stu.Score);
+</span></span><span style="display:flex;"><span>            Console.ReadLine();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> Id { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Name { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Sex { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">double</span> Score { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//无参构造函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> Student()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Console.WriteLine(<span style="color:#e6db74">&#34;无参构造函数被调用&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//有参构造函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> Student(<span style="color:#66d9ef">int</span> id,<span style="color:#66d9ef">string</span> name,<span style="color:#66d9ef">string</span> sex,<span style="color:#66d9ef">double</span> score) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.Id=id;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.Name = name;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.Sex = sex;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.Score = score;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="五实例构造函数-构造函数的名字与类名相同">五、实例构造函数 构造函数的名字与类名相同</h2>
+<p>​        使用new表达式创建类的对象时，会调用其构造函数。并且通常初始化新对象的数据成员。 除非类是静态的，否则会为没有构造函数的类，自动生成一个默认构造函数，并使用默认值来初始化对象字段。 构造函数可以有参数，可以以参数个数、参数类型、参数顺序不同的形式存在多个构造函数。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>        	Student stu1 = <span style="color:#66d9ef">new</span> Student();<span style="color:#75715e">//无参构造函数调用</span>
+</span></span><span style="display:flex;"><span>			Student stu2 = <span style="color:#66d9ef">new</span> Student(<span style="color:#ae81ff">10</span>,<span style="color:#e6db74">&#34;20&#34;</span>);
+</span></span><span style="display:flex;"><span>			Console.WriteLine(<span style="color:#e6db74">$&#34;X={stu1.X}---Y={stu1.Y}&#34;</span>);<span style="color:#75715e">//结果为:X=0---Y=0</span>
+</span></span><span style="display:flex;"><span>            Console.WriteLine(<span style="color:#e6db74">$&#34;X={stu2.X}---Y={stu2.Y}&#34;</span>);<span style="color:#75715e">//结果为:X=10---Y=20</span>
+</span></span><span style="display:flex;"><span>            Console.ReadLine();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Student</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">int</span> X { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">string</span> Y { <span style="color:#66d9ef">get</span>; <span style="color:#66d9ef">set</span>; }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//无参构造函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> Student()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.X = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.Y = <span style="color:#e6db74">&#34;0&#34;</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//有两个参数构造函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> Student(<span style="color:#66d9ef">int</span> x, <span style="color:#66d9ef">string</span> y) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.X = x;
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">this</span>.Y = y;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="六静态构造函数">六、静态构造函数</h2>
+<p>​        静态构造函数不使用访问修饰符或不具有参数。 在创建第一个实例或引用任何静态成员之前，将自动调用静态构造函数以初始化类。 不能直接调用静态构造函数。 无法控制在程序中执行静态构造函数的时间。 静态构造函数的一种典型用法是在类使用日志文件且将构造函数用于将条目写入到此文件中时使用。 静态构造函数对于创建非托管代码的包装类也非常有用，这种情况下构造函数可调用 LoadLibrary 方法。 如果静态构造函数引发异常，运行时将不会再次调用该函数，并且类型在程序运行所在的应用程序域的生存期内将保持未初始化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">int</span> X = <span style="color:#ae81ff">0</span>;<span style="color:#75715e">//静态变量</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">//实例构造函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">public</span> Program()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            X = <span style="color:#ae81ff">1</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//静态构造函数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> Program()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            X = <span style="color:#ae81ff">2</span>;<span style="color:#75715e">//第二步,执行静态构造函数</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//第一步,程序入口Main最先执行,然后执行静态变量public static int X = 0</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Console.WriteLine(X);<span style="color:#75715e">//结果为2</span>
+</span></span><span style="display:flex;"><span>            Program dd = <span style="color:#66d9ef">new</span> Program();<span style="color:#75715e">//第三步,执行构造函数</span>
+</span></span><span style="display:flex;"><span>            Console.WriteLine(X);<span style="color:#75715e">//结果为1</span>
+</span></span><span style="display:flex;"><span>            Console.ReadLine();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>调用类的静态函数时的执行顺序：</p>
+<p>静态变量==&gt;静态构造函数==&gt;实例构造函数 静态变量==&gt;静态构造函数==&gt;静态函数 那么调用类的实例函数时的执行顺序则是:</p>
+<p>非静态变量==&gt;实例构造函数==&gt;实例函数 七、私有构造函数 私有构造函数是一种特殊的实例构造函数。 它通常只在包含静态成员的类中。 如果类具有一个或多个私有构造函数而没有公共构造函数，则在其他类（除嵌套类外）中无法进行实例化。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-csharp" data-lang="csharp"><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">Program</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">private</span> Program()
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            i = <span style="color:#ae81ff">9</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">static</span> <span style="color:#66d9ef">void</span> Main(<span style="color:#66d9ef">string</span>[] args)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            Program ss = <span style="color:#66d9ef">new</span> Program();
+</span></span><span style="display:flex;"><span>            Console.WriteLine(<span style="color:#e6db74">$&#34;i={ss.i}&#34;</span>);<span style="color:#75715e">//运行结果:i=9</span>
+</span></span><span style="display:flex;"><span>            Console.ReadLine();
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">person</span>
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//Program ddd = new Program();//注释打开会报错，错误信息：不可访问，因为它受保护级别限制。因为私有构造函数无法在类的外面实例化。</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div>
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://ev1si0n.github.io/tags//"></a></span>
+        
+    </p>
+
+            
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.feebdc8d801e3fb1791305e362b6d11557f029604dd5b3c27e2686bc88787ee90ae1ccf0afe81bd7d959d7617cfe1fc73062aa82b4e1fa830d6941193d2cbddf.js" integrity="sha512-/uvcjYAeP7F5EwXjYrbRFVfwKWBN1bPCfiaGvIh4fukK4czwr&#43;gb19lZ12F8/h/HMGKqgrTh&#43;oMNaUEZPSy93w=="></script>
+
+
+
+    </body>
+</html>
