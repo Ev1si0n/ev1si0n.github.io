@@ -7,7 +7,18 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Mon, 20 Jun 2022 17:16:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 23 Jun 2022 11:43:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>List.Foreach一点小九九</title>
+      <link>https://ev1si0n.github.io/post/list.foreach%E4%B8%80%E7%82%B9%E5%B0%8F%E4%B9%9D%E4%B9%9D/</link>
+      <pubDate>Thu, 23 Jun 2022 11:43:45 +0800</pubDate>
+      
+      <guid>https://ev1si0n.github.io/post/list.foreach%E4%B8%80%E7%82%B9%E5%B0%8F%E4%B9%9D%E4%B9%9D/</guid>
+      <description>在排查界面查询慢时，查看日志，发现抛出了异常
+var jianyan = i_ODS_JianYanSQYZList.Where(o =&amp;gt; o.JIUZHENYWID == yizhujl.BINGRENZYID &amp;amp;&amp;amp; o.YIZHUID == yizhujl.YIZHUID).FirstOrDefault(); 这里会提示未将对象引用到对象的实例，开始时候以为是LINQ表达式写的有问题，其实是i_ODS_JianYanSQYZList这个list里存在为null的数据。因此抛出异常。
+resp.RespContent.JianYanBGList.ForEach(o =&amp;gt; { o.JianYanBGMXList = jianYanBGMXList.Where(p =&amp;gt; p.BAOGAODID == o.BAOGAOID).ToList(); o.JianYanSQD = jianYanSQDList.Where(p =&amp;gt; p.TIAOMA == o.TIAOMA &amp;amp;&amp;amp; req.ReqsContent.MPIList.Contains(p.MPI)).FirstOrDefault(); i_ODS_JianYanSQYZList.Add(o.JianYanSQD); });//此处这个LINQ表达式其实是有问题的 跟踪业务代码会发现i_ODS_JianYanSQYZList这个list，在add的时候，由于使用了Foreach，则会根据JianYanBGList数量去Add，此处就会出问题，将为null的数据添加到i_ODS_JianYanSQYZList中，然后引发后续的错误</description>
+    </item>
+    
     <item>
       <title>构造函数详解</title>
       <link>https://ev1si0n.github.io/post/%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0%E8%AF%A6%E8%A7%A3/</link>
