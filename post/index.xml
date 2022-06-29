@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 23 Jun 2022 11:43:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Jun 2022 19:14:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>让人有点困惑的委托</title>
+      <link>https://ev1si0n.github.io/post/%E4%BB%A4%E4%BA%BA%E6%9C%89%E7%82%B9%E5%9B%B0%E6%83%91%E7%9A%84%E5%A7%94%E6%89%98/</link>
+      <pubDate>Wed, 29 Jun 2022 19:14:45 +0800</pubDate>
+      
+      <guid>https://ev1si0n.github.io/post/%E4%BB%A4%E4%BA%BA%E6%9C%89%E7%82%B9%E5%9B%B0%E6%83%91%E7%9A%84%E5%A7%94%E6%89%98/</guid>
+      <description>关键词 delegate
+通常来说调用方法方式如下:
+//Person类中定义了如下方法 public int a (string input) { return input.length; } 常规的调用方法如下：
+Person p = new Person(); int length = p.a(&amp;#34;test&amp;#34;); 使用委托调用（此时参数的名称可不必匹配，但参数类型和返回值必须匹配）：
+Person p = new Person(); delegate int DelWith(string s);//声明委托 var d = new DelWith(p.a); int length = d(&amp;#34;test&amp;#34;); 可以理解为委托是将方法作为参数进行传递的一种方法，其好处是支持不同线程的异步操作。</description>
+    </item>
+    
     <item>
       <title>List.Foreach一点小九九</title>
       <link>https://ev1si0n.github.io/post/list.foreach%E4%B8%80%E7%82%B9%E5%B0%8F%E4%B9%9D%E4%B9%9D/</link>
@@ -37,21 +50,6 @@ public int class2(int a) { } 2.调用方式不同
 四、构造函数的作用 当需要给一个类中的字段进行初始化时，第一种：实例化后手动给属性赋值；第二种实例化时直接把参数放进去自动给属性赋值，显然第二种简单省事。下来我们一起看看两种方法：
 第一种：
 class Program { static void Main(string[] args) { Student stu = new Student(); stu.Id = 1807; stu.Name = &amp;#34;王麻子&amp;#34;; stu.Sex = &amp;#34;男&amp;#34;; stu.Score = 88.6; Console.</description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>https://ev1si0n.github.io/post/%E4%BB%A4%E4%BA%BA%E6%9C%89%E7%82%B9%E5%9B%B0%E6%83%91%E7%9A%84%E5%A7%94%E6%89%98/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>https://ev1si0n.github.io/post/%E4%BB%A4%E4%BA%BA%E6%9C%89%E7%82%B9%E5%9B%B0%E6%83%91%E7%9A%84%E5%A7%94%E6%89%98/</guid>
-      <description>让人有点困惑的委托 +++ title = &amp;ldquo;让人有点困惑的委托&amp;rdquo; # 文章标题 date = 2022-06-29T19:14:45+08:00 # 自动添加日期信息 draft = false # 设为false可被编译为HTML，true供本地修改 tags = [&amp;quot;.net&amp;quot;] # 文章标签，可设置多个，用逗号隔开。Hugo会自动生成标签的子URL comments = true # 是否开启Disqus评论功能 share = true # 是否开启分享
-+++
-关键词 delegate
-通常来说调用方法方式如下:
-//Person类中定义了如下方法 public int a (string input) { return input.length; } 常规的调用方法如下：
-Person p = new Person(); int length = p.a(&amp;#34;test&amp;#34;); 使用委托调用（此时参数的名称可不必匹配，但参数类型和返回值必须匹配）：
-Person p = new Person(); delegate int DelWith(string s);//声明委托 var d = new DelWith(p.</description>
     </item>
     
   </channel>
