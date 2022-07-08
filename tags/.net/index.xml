@@ -7,7 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Thu, 23 Jun 2022 11:43:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/tags/.net/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Jun 2022 19:14:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/tags/.net/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>让人有点困惑的委托</title>
+      <link>https://ev1si0n.github.io/post/%E4%BB%A4%E4%BA%BA%E6%9C%89%E7%82%B9%E5%9B%B0%E6%83%91%E7%9A%84%E5%A7%94%E6%89%98/</link>
+      <pubDate>Wed, 29 Jun 2022 19:14:45 +0800</pubDate>
+      
+      <guid>https://ev1si0n.github.io/post/%E4%BB%A4%E4%BA%BA%E6%9C%89%E7%82%B9%E5%9B%B0%E6%83%91%E7%9A%84%E5%A7%94%E6%89%98/</guid>
+      <description>关键词 delegate
+通常来说调用方法方式如下:
+//Person类中定义了如下方法 public int a (string input) { return input.length; } 常规的调用方法如下：
+Person p = new Person(); int length = p.a(&amp;#34;test&amp;#34;); 使用委托调用（此时参数的名称可不必匹配，但参数类型和返回值必须匹配）：
+Person p = new Person(); delegate int DelWith(string s);//声明委托 var d = new DelWith(p.a); int length = d(&amp;#34;test&amp;#34;); 可以理解为委托是将方法作为参数进行传递的一种方法，其好处是支持不同线程的异步操作。</description>
+    </item>
+    
     <item>
       <title>List.Foreach一点小九九</title>
       <link>https://ev1si0n.github.io/post/list.foreach%E4%B8%80%E7%82%B9%E5%B0%8F%E4%B9%9D%E4%B9%9D/</link>

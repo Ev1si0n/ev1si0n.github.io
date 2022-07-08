@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>.运维 on Lee&#39;s Blog</title>
+    <link>https://ev1si0n.github.io/tags/.%E8%BF%90%E7%BB%B4/</link>
+    <description>Recent content in .运维 on Lee&#39;s Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh-cn</language>
+    <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
+    <lastBuildDate>Fri, 08 Jul 2022 16:19:14 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/tags/.%E8%BF%90%E7%BB%B4/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes 从入门到进阶实战教程【转】</title>
+      <link>https://ev1si0n.github.io/post/kubernetes/</link>
+      <pubDate>Fri, 08 Jul 2022 16:19:14 +0800</pubDate>
+      
+      <guid>https://ev1si0n.github.io/post/kubernetes/</guid>
+      <description>作者：oonamao 毛江云，腾讯 CSIG 应用开发工程师 原文：来源腾讯技术工程，https://tinyurl.com/ya3ennxf
+写在前面 笔者今年 9 月从端侧开发转到后台开发，第一个系统开发任务就强依赖了 K8S，加之项目任务重、排期紧，必须马上对 K8S 有概念上的了解。然而，很多所谓“K8S 入门\概念”的文章看的一头雾水，对于大部分新手来说并不友好。经历了几天痛苦地学习之后，回顾来看，K8S 根本不复杂。于是，决心有了这一系列的文章：一方面希望对新手同学有帮助；另一方面，以文会友，希望能够有机会交流讨论技术。
+本文组织方式：
+1. K8S 是什么，即作用和目的。涉及 K8S 架构的整理，Master 和 Node 之间的关系，以及 K8S 几个重要的组件：API Server、Scheduler、Controller、etcd 等。 2. K8S 的重要概念，即 K8S 的 API 对象，也就是常常听到的 Pod、Deployment、Service 等。 3. 如何配置 kubectl，介绍kubectl工具和配置办法。 4. 如何用kubectl 部署服务。 5. 如何用kubectl 查看、更新/编辑、删除服务。 6. 如何用kubectl 排查部署在K8S集群上的服务出现的问题
+I. K8S 概览 1.1 K8S 是什么？ K8S 是Kubernetes的全称，官方称其是：
+Kubernetes is an open source system for managing containerized applications across multiple hosts. It provides basic mechanisms for deployment, maintenance, and scaling of applications.</description>
+    </item>
+    
+  </channel>
+</rss>
