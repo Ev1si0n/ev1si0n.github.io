@@ -7,7 +7,23 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 08 Jul 2022 16:19:14 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 05 Aug 2022 16:02:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>EF Core修改默认schema name</title>
+      <link>https://ev1si0n.github.io/post/ef-core%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4schema-name/</link>
+      <pubDate>Fri, 05 Aug 2022 16:02:45 +0800</pubDate>
+      
+      <guid>https://ev1si0n.github.io/post/ef-core%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4schema-name/</guid>
+      <description>EF Core修改默认schema name
+在处理一个需求时，需要将数据插入到我们的一个新的数据库的表中，遇到了一个问题，DbContext在执行插入动作时，提示相关表不存在。如图：
+查看EF生成的SQL，可以看到默认使用了dbo这个用户
+在Stack Overflow上查到了相关原因为：
+For those using Entity Framework 6, just use the HasDefaultSchema method:
+public class Contexto : DbContext { public DbSet&amp;lt;User&amp;gt; Users { get; set; } protected override void OnModelCreating(DbModelBuilder modelBuilder) { modelBuilder.HasDefaultSchema(&amp;#34;MyDefaultDbSchema&amp;#34;); } } 在重写OnModelCreating（）方法时，修要修改DefaultSchema。
+我们在代码里修改后，看到dbo用户已经修改为SJSB用户：
+数据也成功插入相关表中：</description>
+    </item>
+    
     <item>
       <title>Kubernetes 从入门到进阶实战教程【转】</title>
       <link>https://ev1si0n.github.io/post/kubernetes/</link>
