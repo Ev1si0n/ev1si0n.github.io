@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="author" content="">
+<meta name="description" content="利用反射将两个实体数据相互转换 在实现客户的一个需求时，需要将ORM实体和Entity实体完成转换，并最终调用方法映射到数据库中。理论上最简单但是复杂的办法是进行遍历。这里使用了反射对数据实体进行自动映射：
+创建ConvertModel方法，其中T1为源Entity，T2为要转换的Entity
+public static List&amp;lt;T2&amp;gt; ConvertToNewModel&amp;lt;T1, T2&amp;gt;(List&amp;lt;T1&amp;gt; list) { var t2 = new List&amp;lt;T2&amp;gt;(); foreach (var item in list) { T2 model = default(T2); model = Activator.CreateInstance&amp;lt;T2&amp;gt;(); System.Reflection.PropertyInfo[] pi1 = typeof(T1).GetProperties(); System.Reflection.PropertyInfo[] propertys = model.GetType().GetProperties(); for (int i = 0; i &amp;lt; pi1.Count(); i&#43;&#43;) { propertys[i].SetValue(model, pi1[i].GetValue(item, null), null); } t2.Add(model); } return t2; } 然后在业务代码中调用此方法
+var newlist = ConvertModel.ConvertToNewModel&amp;lt;I_DRC_DI_ADI_PATIENT_TREAT_INFO, I_WS_DI_PATIENT_TREAT_INFO&amp;gt;(list.RespContent); 完成对应数据转换" />
+<meta name="keywords" content=", .net" />
+<meta name="robots" content="noodp" />
+<meta name="theme-color" content="" />
+<link rel="canonical" href="https://ev1si0n.github.io/post/%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%B0%86%E4%B8%A4%E4%B8%AA%E5%AE%9E%E4%BD%93%E6%95%B0%E6%8D%AE%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" />
+
+
+    <title>
+        
+            利用反射将两个实体数据相互转换 :: Lee&#39;s Blog  — Lee的碎碎念
+        
+    </title>
+
+
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.5.0/css/flag-icon.min.css" rel="stylesheet"
+    type="text/css">
+
+
+
+<link rel="stylesheet" href="/main.4e5c639214707eff609bb55fe49e183dee42258a73bc90e4cc7b0a84f900798a.css">
+
+
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <meta name="msapplication-TileColor" content="">
+
+
+<meta itemprop="name" content="利用反射将两个实体数据相互转换">
+<meta itemprop="description" content="利用反射将两个实体数据相互转换 在实现客户的一个需求时，需要将ORM实体和Entity实体完成转换，并最终调用方法映射到数据库中。理论上最简单但是复杂的办法是进行遍历。这里使用了反射对数据实体进行自动映射：
+创建ConvertModel方法，其中T1为源Entity，T2为要转换的Entity
+public static List&lt;T2&gt; ConvertToNewModel&lt;T1, T2&gt;(List&lt;T1&gt; list) { var t2 = new List&lt;T2&gt;(); foreach (var item in list) { T2 model = default(T2); model = Activator.CreateInstance&lt;T2&gt;(); System.Reflection.PropertyInfo[] pi1 = typeof(T1).GetProperties(); System.Reflection.PropertyInfo[] propertys = model.GetType().GetProperties(); for (int i = 0; i &lt; pi1.Count(); i&#43;&#43;) { propertys[i].SetValue(model, pi1[i].GetValue(item, null), null); } t2.Add(model); } return t2; } 然后在业务代码中调用此方法
+var newlist = ConvertModel.ConvertToNewModel&lt;I_DRC_DI_ADI_PATIENT_TREAT_INFO, I_WS_DI_PATIENT_TREAT_INFO&gt;(list.RespContent); 完成对应数据转换"><meta itemprop="datePublished" content="2022-08-09T18:08:45+08:00" />
+<meta itemprop="dateModified" content="2022-08-09T18:08:45+08:00" />
+<meta itemprop="wordCount" content="63"><meta itemprop="image" content="https://ev1si0n.github.io"/>
+<meta itemprop="keywords" content=".net," />
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://ev1si0n.github.io"/>
+
+<meta name="twitter:title" content="利用反射将两个实体数据相互转换"/>
+<meta name="twitter:description" content="利用反射将两个实体数据相互转换 在实现客户的一个需求时，需要将ORM实体和Entity实体完成转换，并最终调用方法映射到数据库中。理论上最简单但是复杂的办法是进行遍历。这里使用了反射对数据实体进行自动映射：
+创建ConvertModel方法，其中T1为源Entity，T2为要转换的Entity
+public static List&lt;T2&gt; ConvertToNewModel&lt;T1, T2&gt;(List&lt;T1&gt; list) { var t2 = new List&lt;T2&gt;(); foreach (var item in list) { T2 model = default(T2); model = Activator.CreateInstance&lt;T2&gt;(); System.Reflection.PropertyInfo[] pi1 = typeof(T1).GetProperties(); System.Reflection.PropertyInfo[] propertys = model.GetType().GetProperties(); for (int i = 0; i &lt; pi1.Count(); i&#43;&#43;) { propertys[i].SetValue(model, pi1[i].GetValue(item, null), null); } t2.Add(model); } return t2; } 然后在业务代码中调用此方法
+var newlist = ConvertModel.ConvertToNewModel&lt;I_DRC_DI_ADI_PATIENT_TREAT_INFO, I_WS_DI_PATIENT_TREAT_INFO&gt;(list.RespContent); 完成对应数据转换"/>
+
+
+
+
+    <meta property="og:title" content="利用反射将两个实体数据相互转换" />
+<meta property="og:description" content="利用反射将两个实体数据相互转换 在实现客户的一个需求时，需要将ORM实体和Entity实体完成转换，并最终调用方法映射到数据库中。理论上最简单但是复杂的办法是进行遍历。这里使用了反射对数据实体进行自动映射：
+创建ConvertModel方法，其中T1为源Entity，T2为要转换的Entity
+public static List&lt;T2&gt; ConvertToNewModel&lt;T1, T2&gt;(List&lt;T1&gt; list) { var t2 = new List&lt;T2&gt;(); foreach (var item in list) { T2 model = default(T2); model = Activator.CreateInstance&lt;T2&gt;(); System.Reflection.PropertyInfo[] pi1 = typeof(T1).GetProperties(); System.Reflection.PropertyInfo[] propertys = model.GetType().GetProperties(); for (int i = 0; i &lt; pi1.Count(); i&#43;&#43;) { propertys[i].SetValue(model, pi1[i].GetValue(item, null), null); } t2.Add(model); } return t2; } 然后在业务代码中调用此方法
+var newlist = ConvertModel.ConvertToNewModel&lt;I_DRC_DI_ADI_PATIENT_TREAT_INFO, I_WS_DI_PATIENT_TREAT_INFO&gt;(list.RespContent); 完成对应数据转换" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://ev1si0n.github.io/post/%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%B0%86%E4%B8%A4%E4%B8%AA%E5%AE%9E%E4%BD%93%E6%95%B0%E6%8D%AE%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/" /><meta property="og:image" content="https://ev1si0n.github.io"/><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-08-09T18:08:45+08:00" />
+<meta property="article:modified_time" content="2022-08-09T18:08:45+08:00" /><meta property="og:site_name" content="Lee&#39;s Blog" />
+
+
+
+
+
+
+
+    <meta property="article:published_time" content="2022-08-09 18:08:45 &#43;0800 CST" />
+
+
+
+
+
+
+
+
+
+
+    </head>
+
+    
+        <body>
+    
+    
+        <div class="container">
+            <header class="header">
+    <span class="header__inner">
+        <a href="/" style="text-decoration: none;">
+    <div class="logo">
+        
+            <span class="logo__mark">></span>
+            <span class="logo__text">Lee&#39;s Blog</span>
+            <span class="logo__cursor" style=
+                  "
+                   
+                   ">
+            </span>
+        
+    </div>
+</a>
+
+
+        <span class="header__right">
+            
+                <nav class="menu">
+    <ul class="menu__inner"><li><a href="/post">文章列表</a></li>
+    </ul>
+</nav>
+
+                <span class="menu-trigger">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"/>
+                    </svg>
+                </span>
+            
+        </span>
+    </span>
+</header>
+
+
+            <div class="content">
+                
+    <main class="post">
+
+        <div class="post-info">
+            
+            </p>
+        </div>
+
+        <article>
+            <h2 class="post-title"><a href="https://ev1si0n.github.io/post/%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%B0%86%E4%B8%A4%E4%B8%AA%E5%AE%9E%E4%BD%93%E6%95%B0%E6%8D%AE%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/">利用反射将两个实体数据相互转换</a></h2>
+
+            
+            
+            
+
+            <div class="post-content">
+                <h2 id="利用反射将两个实体数据相互转换">利用反射将两个实体数据相互转换</h2>
+<p>在实现客户的一个需求时，需要将ORM实体和Entity实体完成转换，并最终调用方法映射到数据库中。理论上最简单但是复杂的办法是进行遍历。这里使用了反射对数据实体进行自动映射：</p>
+<p>创建ConvertModel方法，其中T1为源Entity，T2为要转换的Entity</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span><span style="color:#66d9ef">public</span> <span style="color:#66d9ef">static</span> List&lt;T2&gt; ConvertToNewModel&lt;T1, T2&gt;(List&lt;T1&gt; list)
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">var</span> t2 = <span style="color:#66d9ef">new</span> List&lt;T2&gt;();
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">foreach</span> (<span style="color:#66d9ef">var</span> item <span style="color:#66d9ef">in</span> list)
+</span></span><span style="display:flex;"><span>            {
+</span></span><span style="display:flex;"><span>                T2 model = <span style="color:#66d9ef">default</span>(T2);
+</span></span><span style="display:flex;"><span>                model = Activator.CreateInstance&lt;T2&gt;();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>                System.Reflection.PropertyInfo[] pi1 = <span style="color:#66d9ef">typeof</span>(T1).GetProperties();
+</span></span><span style="display:flex;"><span>                System.Reflection.PropertyInfo[] propertys =                        model.GetType().GetProperties();
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">for</span> (<span style="color:#66d9ef">int</span> i = <span style="color:#ae81ff">0</span>; i &lt; pi1.Count(); i++)
+</span></span><span style="display:flex;"><span>                {
+</span></span><span style="display:flex;"><span>                    propertys[i].SetValue(model, pi1[i].GetValue(item, <span style="color:#66d9ef">null</span>), <span style="color:#66d9ef">null</span>);
+</span></span><span style="display:flex;"><span>                }
+</span></span><span style="display:flex;"><span>                t2.Add(model);
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> t2;
+</span></span><span style="display:flex;"><span>        }
+</span></span></code></pre></div><p>然后在业务代码中调用此方法</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c#" data-lang="c#"><span style="display:flex;"><span>                    <span style="color:#66d9ef">var</span> newlist = ConvertModel.ConvertToNewModel&lt;I_DRC_DI_ADI_PATIENT_TREAT_INFO, I_WS_DI_PATIENT_TREAT_INFO&gt;(list.RespContent);
+</span></span></code></pre></div><p>完成对应数据转换</p>
+
+            </div>
+        </article>
+
+        <hr />
+
+        <div class="post-info">
+            
+    <p>
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg>
+
+        <span class="tag"><a href="https://ev1si0n.github.io/tags/.net/">.net</a></span>
+        
+    </p>
+
+            
+  		</div>
+    </main>
+
+            </div>
+
+            
+                <footer class="footer">
+    
+    
+</footer>
+
+            
+        </div>
+
+        
+
+
+
+<script type="text/javascript" src="/bundle.min.feebdc8d801e3fb1791305e362b6d11557f029604dd5b3c27e2686bc88787ee90ae1ccf0afe81bd7d959d7617cfe1fc73062aa82b4e1fa830d6941193d2cbddf.js" integrity="sha512-/uvcjYAeP7F5EwXjYrbRFVfwKWBN1bPCfiaGvIh4fukK4czwr&#43;gb19lZ12F8/h/HMGKqgrTh&#43;oMNaUEZPSy93w=="></script>
+
+
+
+    </body>
+</html>

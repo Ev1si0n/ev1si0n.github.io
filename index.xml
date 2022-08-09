@@ -7,7 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>zh-cn</language>
     <copyright>&lt;a href=&#34;https://creativecommons.org/licenses/by-nc/4.0/&#34; target=&#34;_blank&#34; rel=&#34;noopener&#34;&gt;CC BY-NC 4.0&lt;/a&gt;</copyright>
-    <lastBuildDate>Fri, 05 Aug 2022 16:02:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 09 Aug 2022 18:08:45 +0800</lastBuildDate><atom:link href="https://ev1si0n.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>利用反射将两个实体数据相互转换</title>
+      <link>https://ev1si0n.github.io/post/%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%B0%86%E4%B8%A4%E4%B8%AA%E5%AE%9E%E4%BD%93%E6%95%B0%E6%8D%AE%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</link>
+      <pubDate>Tue, 09 Aug 2022 18:08:45 +0800</pubDate>
+      
+      <guid>https://ev1si0n.github.io/post/%E5%88%A9%E7%94%A8%E5%8F%8D%E5%B0%84%E5%B0%86%E4%B8%A4%E4%B8%AA%E5%AE%9E%E4%BD%93%E6%95%B0%E6%8D%AE%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2/</guid>
+      <description>利用反射将两个实体数据相互转换 在实现客户的一个需求时，需要将ORM实体和Entity实体完成转换，并最终调用方法映射到数据库中。理论上最简单但是复杂的办法是进行遍历。这里使用了反射对数据实体进行自动映射：
+创建ConvertModel方法，其中T1为源Entity，T2为要转换的Entity
+public static List&amp;lt;T2&amp;gt; ConvertToNewModel&amp;lt;T1, T2&amp;gt;(List&amp;lt;T1&amp;gt; list) { var t2 = new List&amp;lt;T2&amp;gt;(); foreach (var item in list) { T2 model = default(T2); model = Activator.CreateInstance&amp;lt;T2&amp;gt;(); System.Reflection.PropertyInfo[] pi1 = typeof(T1).GetProperties(); System.Reflection.PropertyInfo[] propertys = model.GetType().GetProperties(); for (int i = 0; i &amp;lt; pi1.Count(); i++) { propertys[i].SetValue(model, pi1[i].GetValue(item, null), null); } t2.Add(model); } return t2; } 然后在业务代码中调用此方法
+var newlist = ConvertModel.ConvertToNewModel&amp;lt;I_DRC_DI_ADI_PATIENT_TREAT_INFO, I_WS_DI_PATIENT_TREAT_INFO&amp;gt;(list.RespContent); 完成对应数据转换</description>
+    </item>
+    
     <item>
       <title>EFCore修改默认schemaName</title>
       <link>https://ev1si0n.github.io/post/efcore%E4%BF%AE%E6%94%B9%E9%BB%98%E8%AE%A4schemaname/</link>
